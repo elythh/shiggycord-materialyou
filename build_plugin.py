@@ -13,7 +13,10 @@ code = source.replace("const TEMPLATE = __TEMPLATE__;",
                       "const TEMPLATE = " + json.dumps(template, separators=(",", ":")) + ";")
 code = code.replace("const EXTRA_SEMANTIC = __EXTRA_SEMANTIC__;",
                     "const EXTRA_SEMANTIC = " + json.dumps(extra, separators=(",", ":")) + ";")
-assert "__EXTRA_SEMANTIC__;" not in code
+raw_tones = json.loads((HERE / "raw-tones.json").read_text())
+code = code.replace("const RAW_TONES = __RAW_TONES__;",
+                    "const RAW_TONES = " + json.dumps(raw_tones, separators=(",", ":")) + ";")
+assert "__EXTRA_SEMANTIC__;" not in code and "__RAW_TONES__;" not in code
 
 # ShiggyCord evaluates `vendetta=>{return <file>}`: anything before the expression on its own
 # line (like the header comment) would end the return statement, so start at the IIFE.

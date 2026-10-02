@@ -1,0 +1,802 @@
+{
+"BLURPLE_1": [
+"accent1",
+39.1
+],
+"BLURPLE_2": [
+"accent1",
+4.6
+],
+"BLURPLE_3": [
+"accent1",
+91.0
+],
+"BLURPLE_4": [
+"accent1",
+90.2
+],
+"BLURPLE_5": [
+"accent1",
+89.2
+],
+"BLURPLE_6": [
+"accent1",
+88.4
+],
+"BLURPLE_7": [
+"accent1",
+87.4
+],
+"BLURPLE_8": [
+"accent1",
+86.4
+],
+"BLURPLE_9": [
+"accent1",
+85.7
+],
+"BLURPLE_10": [
+"accent1",
+84.7
+],
+"BLURPLE_11": [
+"accent1",
+83.9
+],
+"BLURPLE_12": [
+"accent1",
+83.0
+],
+"BLURPLE_13": [
+"accent1",
+81.9
+],
+"BLURPLE_14": [
+"accent1",
+81.2
+],
+"BLURPLE_15": [
+"accent1",
+80.2
+],
+"BLURPLE_16": [
+"accent1",
+79.5
+],
+"BLURPLE_17": [
+"accent1",
+78.5
+],
+"BLURPLE_18": [
+"accent1",
+77.5
+],
+"BLURPLE_19": [
+"accent1",
+76.8
+],
+"BLURPLE_20": [
+"accent1",
+75.8
+],
+"BLURPLE_21": [
+"accent1",
+74.9
+],
+"BLURPLE_22": [
+"accent1",
+74.1
+],
+"BLURPLE_23": [
+"accent1",
+73.2
+],
+"BLURPLE_24": [
+"accent1",
+72.2
+],
+"BLURPLE_25": [
+"accent1",
+71.5
+],
+"BLURPLE_26": [
+"accent1",
+70.5
+],
+"BLURPLE_27": [
+"accent1",
+69.5
+],
+"BLURPLE_28": [
+"accent1",
+68.9
+],
+"BLURPLE_29": [
+"accent1",
+67.9
+],
+"BLURPLE_30": [
+"accent1",
+66.9
+],
+"BLURPLE_31": [
+"accent1",
+66.2
+],
+"BLURPLE_32": [
+"accent1",
+65.2
+],
+"BLURPLE_33": [
+"accent1",
+64.3
+],
+"BLURPLE_34": [
+"accent1",
+63.3
+],
+"BLURPLE_35": [
+"accent1",
+62.6
+],
+"BLURPLE_36": [
+"accent1",
+61.6
+],
+"BLURPLE_37": [
+"accent1",
+60.7
+],
+"BLURPLE_38": [
+"accent1",
+59.7
+],
+"BLURPLE_39": [
+"accent1",
+59.0
+],
+"BLURPLE_40": [
+"accent1",
+58.1
+],
+"BLURPLE_41": [
+"accent1",
+57.1
+],
+"BLURPLE_42": [
+"accent1",
+56.2
+],
+"BLURPLE_43": [
+"accent1",
+55.3
+],
+"BLURPLE_44": [
+"accent1",
+54.4
+],
+"BLURPLE_45": [
+"accent1",
+53.7
+],
+"BLURPLE_46": [
+"accent1",
+52.8
+],
+"BLURPLE_47": [
+"accent1",
+51.9
+],
+"BLURPLE_48": [
+"accent1",
+51.1
+],
+"BLURPLE_49": [
+"accent1",
+50.1
+],
+"BLURPLE_50": [
+"accent1",
+49.2
+],
+"BLURPLE_51": [
+"accent1",
+48.2
+],
+"BLURPLE_52": [
+"accent1",
+47.2
+],
+"BLURPLE_53": [
+"accent1",
+46.1
+],
+"BLURPLE_54": [
+"accent1",
+45.1
+],
+"BLURPLE_55": [
+"accent1",
+44.1
+],
+"BLURPLE_56": [
+"accent1",
+43.1
+],
+"BLURPLE_57": [
+"accent1",
+42.4
+],
+"BLURPLE_58": [
+"accent1",
+41.3
+],
+"BLURPLE_59": [
+"accent1",
+40.3
+],
+"BLURPLE_60": [
+"accent1",
+39.3
+],
+"BLURPLE_61": [
+"accent1",
+38.3
+],
+"BLURPLE_62": [
+"accent1",
+37.3
+],
+"BLURPLE_63": [
+"accent1",
+36.4
+],
+"BLURPLE_64": [
+"accent1",
+35.4
+],
+"BLURPLE_65": [
+"accent1",
+34.4
+],
+"BLURPLE_66": [
+"accent1",
+33.4
+],
+"BLURPLE_67": [
+"accent1",
+32.4
+],
+"BLURPLE_68": [
+"accent1",
+31.4
+],
+"BLURPLE_69": [
+"accent1",
+30.4
+],
+"BLURPLE_70": [
+"accent1",
+29.4
+],
+"BLURPLE_71": [
+"accent1",
+28.4
+],
+"BLURPLE_72": [
+"accent1",
+27.4
+],
+"BLURPLE_73": [
+"accent1",
+26.4
+],
+"BLURPLE_74": [
+"accent1",
+25.5
+],
+"BLURPLE_75": [
+"accent1",
+24.5
+],
+"BLURPLE_76": [
+"accent1",
+23.4
+],
+"BLURPLE_77": [
+"accent1",
+22.7
+],
+"BLURPLE_78": [
+"accent1",
+21.6
+],
+"BLURPLE_79": [
+"accent1",
+20.6
+],
+"BLURPLE_80": [
+"accent1",
+19.7
+],
+"BLURPLE_81": [
+"accent1",
+18.6
+],
+"BLURPLE_82": [
+"accent1",
+17.6
+],
+"BLURPLE_83": [
+"accent1",
+16.5
+],
+"BLURPLE_84": [
+"accent1",
+15.6
+],
+"BLURPLE_85": [
+"accent1",
+14.9
+],
+"BLURPLE_86": [
+"accent1",
+13.8
+],
+"BLURPLE_87": [
+"accent1",
+12.8
+],
+"BLURPLE_88": [
+"accent1",
+11.8
+],
+"BLURPLE_89": [
+"accent1",
+10.7
+],
+"BLURPLE_90": [
+"accent1",
+9.9
+],
+"BLURPLE_91": [
+"accent1",
+9.0
+],
+"BLURPLE_92": [
+"accent1",
+7.8
+],
+"BLURPLE_93": [
+"accent1",
+6.8
+],
+"BLURPLE_94": [
+"accent1",
+5.9
+],
+"BLURPLE_95": [
+"accent1",
+4.9
+],
+"BLURPLE_96": [
+"accent1",
+4.0
+],
+"BLURPLE_97": [
+"accent1",
+3.0
+],
+"BLURPLE_98": [
+"accent1",
+2.1
+],
+"BLURPLE_99": [
+"accent1",
+0.9
+],
+"BLURPLE_100": [
+"accent1",
+0.0
+],
+"NEUTRAL_1": [
+"neutral1",
+100.0
+],
+"NEUTRAL_2": [
+"neutral1",
+98.6
+],
+"NEUTRAL_3": [
+"neutral1",
+97.3
+],
+"NEUTRAL_4": [
+"neutral1",
+95.9
+],
+"NEUTRAL_5": [
+"neutral1",
+94.5
+],
+"NEUTRAL_6": [
+"neutral1",
+93.3
+],
+"NEUTRAL_7": [
+"neutral1",
+92.0
+],
+"NEUTRAL_8": [
+"neutral1",
+90.6
+],
+"NEUTRAL_9": [
+"neutral1",
+89.3
+],
+"NEUTRAL_10": [
+"neutral1",
+87.8
+],
+"NEUTRAL_11": [
+"neutral1",
+86.7
+],
+"NEUTRAL_12": [
+"neutral1",
+85.3
+],
+"NEUTRAL_13": [
+"neutral1",
+83.9
+],
+"NEUTRAL_14": [
+"neutral1",
+82.5
+],
+"NEUTRAL_15": [
+"neutral1",
+81.4
+],
+"NEUTRAL_16": [
+"neutral1",
+79.9
+],
+"NEUTRAL_17": [
+"neutral1",
+78.6
+],
+"NEUTRAL_18": [
+"neutral1",
+77.1
+],
+"NEUTRAL_19": [
+"neutral1",
+75.9
+],
+"NEUTRAL_20": [
+"neutral1",
+74.5
+],
+"NEUTRAL_21": [
+"neutral1",
+73.1
+],
+"NEUTRAL_22": [
+"neutral1",
+71.9
+],
+"NEUTRAL_23": [
+"neutral1",
+70.4
+],
+"NEUTRAL_24": [
+"neutral1",
+69.1
+],
+"NEUTRAL_25": [
+"neutral1",
+67.8
+],
+"NEUTRAL_26": [
+"neutral1",
+66.4
+],
+"NEUTRAL_27": [
+"neutral1",
+65.2
+],
+"NEUTRAL_28": [
+"neutral1",
+63.7
+],
+"NEUTRAL_29": [
+"neutral1",
+62.6
+],
+"NEUTRAL_30": [
+"neutral1",
+61.1
+],
+"NEUTRAL_31": [
+"neutral1",
+59.9
+],
+"NEUTRAL_32": [
+"neutral1",
+58.4
+],
+"NEUTRAL_33": [
+"neutral1",
+57.2
+],
+"NEUTRAL_34": [
+"neutral1",
+55.7
+],
+"NEUTRAL_35": [
+"neutral1",
+54.5
+],
+"NEUTRAL_36": [
+"neutral1",
+53.0
+],
+"NEUTRAL_37": [
+"neutral1",
+51.8
+],
+"NEUTRAL_38": [
+"neutral1",
+50.2
+],
+"NEUTRAL_39": [
+"neutral1",
+49.0
+],
+"NEUTRAL_40": [
+"neutral1",
+47.8
+],
+"NEUTRAL_41": [
+"neutral1",
+46.2
+],
+"NEUTRAL_42": [
+"neutral1",
+45.0
+],
+"NEUTRAL_43": [
+"neutral1",
+43.8
+],
+"NEUTRAL_44": [
+"neutral1",
+42.2
+],
+"NEUTRAL_45": [
+"neutral1",
+41.0
+],
+"NEUTRAL_46": [
+"neutral1",
+39.7
+],
+"NEUTRAL_47": [
+"neutral1",
+38.4
+],
+"NEUTRAL_48": [
+"neutral1",
+36.8
+],
+"NEUTRAL_49": [
+"neutral1",
+35.5
+],
+"NEUTRAL_50": [
+"neutral1",
+34.3
+],
+"NEUTRAL_51": [
+"neutral1",
+33.4
+],
+"NEUTRAL_52": [
+"neutral1",
+33.0
+],
+"NEUTRAL_53": [
+"neutral1",
+32.1
+],
+"NEUTRAL_54": [
+"neutral1",
+31.7
+],
+"NEUTRAL_55": [
+"neutral1",
+30.8
+],
+"NEUTRAL_56": [
+"neutral1",
+30.3
+],
+"NEUTRAL_57": [
+"neutral1",
+29.5
+],
+"NEUTRAL_58": [
+"neutral1",
+28.7
+],
+"NEUTRAL_59": [
+"neutral1",
+28.2
+],
+"NEUTRAL_60": [
+"neutral1",
+27.3
+],
+"NEUTRAL_61": [
+"neutral1",
+26.8
+],
+"NEUTRAL_62": [
+"neutral1",
+25.9
+],
+"NEUTRAL_63": [
+"neutral1",
+25.5
+],
+"NEUTRAL_64": [
+"neutral1",
+24.6
+],
+"NEUTRAL_65": [
+"neutral1",
+24.1
+],
+"NEUTRAL_66": [
+"neutral1",
+23.2
+],
+"NEUTRAL_67": [
+"neutral1",
+22.7
+],
+"NEUTRAL_68": [
+"neutral1",
+21.9
+],
+"NEUTRAL_69": [
+"neutral1",
+21.4
+],
+"NEUTRAL_70": [
+"neutral1",
+20.5
+],
+"NEUTRAL_71": [
+"neutral1",
+19.9
+],
+"NEUTRAL_72": [
+"neutral1",
+19.2
+],
+"NEUTRAL_73": [
+"neutral1",
+18.6
+],
+"NEUTRAL_74": [
+"neutral1",
+17.8
+],
+"NEUTRAL_75": [
+"neutral1",
+17.1
+],
+"NEUTRAL_76": [
+"neutral1",
+16.3
+],
+"NEUTRAL_77": [
+"neutral1",
+15.8
+],
+"NEUTRAL_78": [
+"neutral1",
+15.2
+],
+"NEUTRAL_79": [
+"neutral1",
+14.4
+],
+"NEUTRAL_80": [
+"neutral1",
+13.8
+],
+"NEUTRAL_81": [
+"neutral1",
+12.9
+],
+"NEUTRAL_82": [
+"neutral1",
+12.4
+],
+"NEUTRAL_83": [
+"neutral1",
+11.8
+],
+"NEUTRAL_84": [
+"neutral1",
+10.9
+],
+"NEUTRAL_85": [
+"neutral1",
+10.3
+],
+"NEUTRAL_86": [
+"neutral1",
+9.4
+],
+"NEUTRAL_87": [
+"neutral1",
+8.9
+],
+"NEUTRAL_88": [
+"neutral1",
+8.3
+],
+"NEUTRAL_89": [
+"neutral1",
+7.4
+],
+"NEUTRAL_90": [
+"neutral1",
+6.9
+],
+"NEUTRAL_91": [
+"neutral1",
+6.3
+],
+"NEUTRAL_92": [
+"neutral1",
+5.5
+],
+"NEUTRAL_93": [
+"neutral1",
+4.8
+],
+"NEUTRAL_94": [
+"neutral1",
+4.0
+],
+"NEUTRAL_95": [
+"neutral1",
+3.4
+],
+"NEUTRAL_96": [
+"neutral1",
+2.8
+],
+"NEUTRAL_97": [
+"neutral1",
+2.0
+],
+"NEUTRAL_98": [
+"neutral1",
+1.4
+],
+"NEUTRAL_99": [
+"neutral1",
+0.6
+],
+"NEUTRAL_100": [
+"neutral1",
+0.0
+]
+}

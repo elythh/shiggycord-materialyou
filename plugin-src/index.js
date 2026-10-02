@@ -11,6 +11,10 @@
     // Semantic keys newer Discord versions use that the template lacks (extra-semantic.json):
     // role name, or #hex for colors with a fixed meaning.
     const EXTRA_SEMANTIC = __EXTRA_SEMANTIC__;
+    // Discord's newer raw palettes (NEUTRAL_1-100 grays, BLURPLE_1-100 brand), which Discord 349
+    // draws most surfaces from: [palette, tone], the tone being the stock color's CIELAB L*, so
+    // each step keeps Discord's lightness and takes the wallpaper's hue (raw-tones.json).
+    const RAW_TONES = __RAW_TONES__;
 
     // Material You dark roles as [palette, tone]. Tones measured from the roles Android 16+
     // generates (Material 3 Expressive, 2025 spec); Android 12-15 used slightly lighter surfaces.
@@ -149,6 +153,9 @@
             theme.semanticColors[key] = theme.semanticColors[key].map(v => v && recolor(v, roles));
         }
         for (const key in theme.rawColors) theme.rawColors[key] = recolor(theme.rawColors[key], roles);
+        for (const [key, [palette, t]] of Object.entries(RAW_TONES)) {
+            theme.rawColors[key] = tone(sys, palette, Math.max(0, Math.min(100, t)));
+        }
         for (const [key, value] of Object.entries(EXTRA_SEMANTIC)) {
             if (key.startsWith("_")) continue;
             theme.semanticColors[key] = [value.startsWith("#") ? value : roles[value]];
