@@ -182,19 +182,26 @@
             storedTheme: globalThis.__PYON_LOADER__?.storedTheme?.id ?? null,
             discordTheme: themeStore?.theme,
         }));
-        if (!changed) return;
+        if (changed) {
+            themes[THEME_ID] = { id: THEME_ID, selected: existing?.selected ?? false, data };
+            storage.fingerprint = fingerprint;
+        }
 
-        themes[THEME_ID] = { id: THEME_ID, selected: existing?.selected ?? false, data };
-        storage.fingerprint = fingerprint;
-        // Select it the first time; afterwards only refresh it while it is the selected theme,
-        // so picking another theme is respected.
+        // Select it the first time; afterwards re-apply it on every start while it is the
+        // selected theme. ShiggyCord only resolves semantic colors (backgrounds, text) while
+        // Discord's appearance is set to the theme's key, and selectTheme is what sets it;
+        // without this, a restart leaves only the raw colors (buttons, brand) themed.
+        // Picking another theme is respected: an unselected theme is only kept up to date.
         if (!existing || existing.selected) {
             vendetta.themes.selectTheme(THEME_ID);
             log("log", "selected", JSON.stringify({ discordTheme: themeStore?.theme }));
-            vendetta.ui?.toasts?.showToast?.(existing
-                ? "Material You theme updated to your wallpaper. Restart Discord to apply it everywhere."
-                : "Material You theme applied. Restart Discord to apply it everywhere.");
+            if (changed) {
+                vendetta.ui?.toasts?.showToast?.(existing
+                    ? "Material You theme updated to your wallpaper."
+                    : "Material You theme applied.");
+            }
         }
+        if (!changed) return;
         log("log", `Material You theme ${existing ? "updated" : "installed"}: ${data.description}`);
     }
 
