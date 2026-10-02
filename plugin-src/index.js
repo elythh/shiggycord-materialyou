@@ -290,12 +290,6 @@
             active = null;
         }
 
-        // Temporary diagnostics: plugin console output doesn't reach logcat on this build.
-        if (storage.debug !== false) {
-            setTimeout(() => vendetta.ui?.toasts?.showToast?.(
-                `MY dbg: sel=${existing?.selected} chg=${changed} disc ${before} -> ${themeStore?.theme} ` +
-                `cur=${(vendetta.themes.getCurrentTheme?.()?.id ?? "none").slice(-20)} sys=${!!sys} patched=${patched}`), 4000);
-        }
         if (!changed) return;
         log("log", `Material You theme ${existing ? "updated" : "installed"}: ${data.description}`);
     }
