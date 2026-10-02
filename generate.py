@@ -15,6 +15,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 TEMPLATE = HERE / "template-catppuccin-mocha-lavender.json"
+EXTRA_SEMANTIC = HERE / "extra-semantic.json"
 
 # Catppuccin Mocha color -> Material You dark role. Status colors with a fixed meaning
 # (online green, idle yellow, warning orange) keep their Catppuccin value.
@@ -50,7 +51,9 @@ def parse_roles(text):
     roles = {}
     for value, name in re.findall(r"0xff([0-9a-f]{6}) \(color/system_([a-z_]+)_dark\)", text):
         roles[name] = "#" + value
-    missing = sorted(set(ROLE_FOR.values()) - roles.keys())
+    extra_roles = {v for k, v in json.loads(EXTRA_SEMANTIC.read_text()).items()
+                   if not k.startswith("_") and not v.startswith("#")}
+    missing = sorted((set(ROLE_FOR.values()) | extra_roles) - roles.keys())
     if missing:
         raise SystemExit(f"Missing Material roles {missing}; is this Android 14+ with dynamic color on?")
     return roles
@@ -82,6 +85,9 @@ def build(roles):
         for key, values in theme["semanticColors"].items()
     }
     theme["rawColors"] = {key: recolor(v, roles) for key, v in theme["rawColors"].items()}
+    for key, value in json.loads(EXTRA_SEMANTIC.read_text()).items():
+        if not key.startswith("_"):
+            theme["semanticColors"][key] = [value if value.startswith("#") else roles[value]]
     plus = theme.get("plus", {})
     if "mentionLineColor" in plus:
         plus["mentionLineColor"] = recolor(plus["mentionLineColor"], roles)

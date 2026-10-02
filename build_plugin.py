@@ -7,9 +7,13 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 template = json.loads((HERE / "template-catppuccin-mocha-lavender.json").read_text())
 source = (HERE / "plugin-src" / "index.js").read_text()
+extra = json.loads((HERE / "extra-semantic.json").read_text())
 assert source.count("__TEMPLATE__") == 2, "expected the placeholder in one comment and one assignment"
 code = source.replace("const TEMPLATE = __TEMPLATE__;",
                       "const TEMPLATE = " + json.dumps(template, separators=(",", ":")) + ";")
+code = code.replace("const EXTRA_SEMANTIC = __EXTRA_SEMANTIC__;",
+                    "const EXTRA_SEMANTIC = " + json.dumps(extra, separators=(",", ":")) + ";")
+assert "__EXTRA_SEMANTIC__;" not in code
 
 # ShiggyCord evaluates `vendetta=>{return <file>}`: anything before the expression on its own
 # line (like the header comment) would end the return statement, so start at the IIFE.

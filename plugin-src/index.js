@@ -4,6 +4,9 @@
 (() => {
     const THEME_ID = "materialyou-plugin";
     const TEMPLATE = __TEMPLATE__;
+    // Semantic keys newer Discord versions use that the template lacks (extra-semantic.json):
+    // role name, or #hex for colors with a fixed meaning.
+    const EXTRA_SEMANTIC = __EXTRA_SEMANTIC__;
 
     // Material You dark roles as [palette, tone]. Tones measured from the roles Android 16+
     // generates (Material 3 Expressive, 2025 spec); Android 12-15 used slightly lighter surfaces.
@@ -11,6 +14,7 @@
         surface: ["neutral1", 4],
         surface_container_low: ["neutral1", 6],
         surface_container: ["neutral1", 9],
+        surface_container_high: ["neutral1", 12],
         surface_container_highest: ["neutral1", 15],
         surface_bright: ["neutral1", 18],
         outline_variant: ["neutral2", 30],
@@ -19,6 +23,9 @@
         on_secondary_container: ["accent2", 78],
         on_surface: ["neutral1", 91],
         primary: ["accent1", 80],
+        primary_container: ["accent1", 35],
+        on_primary: ["accent1", 27],
+        secondary_container: ["accent2", 25],
         secondary: ["accent2", 80],
         tertiary: ["accent3", 92],
         tertiary_container: ["accent3", 87],
@@ -51,6 +58,13 @@
 
     // Android exports 13 shades per palette; shade N is tone 100 - N / 10.
     const SHADES = [0, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+    // vendetta.logger is Discord's internal logger, invisible to adb; console goes to logcat
+    // (tag ReactNativeJS), which makes problems on a device diagnosable.
+    const log = (level, ...args) => {
+        console[level === "warn" ? "warn" : level === "error" ? "error" : "log"]("[MaterialYouTheme]", ...args);
+        vendetta.logger[level]?.(...args);
+    };
 
     function getSysColors() {
         const sources = [globalThis.__PYON_LOADER__?.sysColors, globalThis.__vendetta_syscolors];
@@ -131,6 +145,10 @@
             theme.semanticColors[key] = theme.semanticColors[key].map(v => v && recolor(v, roles));
         }
         for (const key in theme.rawColors) theme.rawColors[key] = recolor(theme.rawColors[key], roles);
+        for (const [key, value] of Object.entries(EXTRA_SEMANTIC)) {
+            if (key.startsWith("_")) continue;
+            theme.semanticColors[key] = [value.startsWith("#") ? value : roles[value]];
+        }
         if (theme.plus) {
             if (theme.plus.mentionLineColor) theme.plus.mentionLineColor = recolor(theme.plus.mentionLineColor, roles);
             for (const key in theme.plus.icons ?? {}) theme.plus.icons[key] = recolor(theme.plus.icons[key], roles);
@@ -139,27 +157,45 @@
     }
 
     function apply() {
+        const loader = globalThis.__PYON_LOADER__;
+        log("log", "start", JSON.stringify({
+            loader: typeof loader, loaderName: loader?.loaderName, keys: loader ? Object.keys(loader) : null,
+            vdSysColors: typeof globalThis.__vendetta_syscolors,
+        }));
         const sys = getSysColors();
         if (!sys) {
-            vendetta.logger.warn("No Material You colors from the loader (needs Android 12+ and ShiggyXposed)");
+            log("warn", "No Material You colors from the loader (needs Android 12+ and ShiggyXposed)");
             return;
         }
         const { themes } = vendetta.themes;
+        const storage = vendetta.plugin.storage;
         const data = buildTheme(sys);
+        // ShiggyCord's parser edits a theme's colors in place (it adds Android alpha keys), so
+        // comparing against the stored theme always differs; compare the inputs instead.
+        const fingerprint = JSON.stringify(sys);
         const existing = themes[THEME_ID];
-        const changed = !existing || JSON.stringify(existing.data) !== JSON.stringify(data);
+        const changed = !existing || storage.fingerprint !== fingerprint;
+        const themeStore = vendetta.metro?.findByStoreName?.("ThemeStore");
+        log("log", "theme", JSON.stringify({
+            existing: !!existing, selected: existing?.selected, changed,
+            hasThemeSupport: globalThis.__PYON_LOADER__?.hasThemeSupport,
+            storedTheme: globalThis.__PYON_LOADER__?.storedTheme?.id ?? null,
+            discordTheme: themeStore?.theme,
+        }));
         if (!changed) return;
 
         themes[THEME_ID] = { id: THEME_ID, selected: existing?.selected ?? false, data };
+        storage.fingerprint = fingerprint;
         // Select it the first time; afterwards only refresh it while it is the selected theme,
         // so picking another theme is respected.
         if (!existing || existing.selected) {
             vendetta.themes.selectTheme(THEME_ID);
+            log("log", "selected", JSON.stringify({ discordTheme: themeStore?.theme }));
             vendetta.ui?.toasts?.showToast?.(existing
                 ? "Material You theme updated to your wallpaper. Restart Discord to apply it everywhere."
                 : "Material You theme applied. Restart Discord to apply it everywhere.");
         }
-        vendetta.logger.log(`Material You theme ${existing ? "updated" : "installed"}: ${data.description}`);
+        log("log", `Material You theme ${existing ? "updated" : "installed"}: ${data.description}`);
     }
 
     return {
@@ -167,13 +203,14 @@
             try {
                 apply();
             } catch (e) {
-                vendetta.logger.error("Failed to apply the Material You theme", e);
+                log("error", "Failed to apply the Material You theme", String(e), e?.stack);
             }
         },
         onUnload() {
             const { themes } = vendetta.themes;
             if (themes[THEME_ID]?.selected) vendetta.themes.selectTheme("default");
             delete themes[THEME_ID];
+            delete vendetta.plugin.storage.fingerprint;
         },
         // Exposed for testing outside Discord.
         _test: { buildTheme, resolveRoles, tone },
