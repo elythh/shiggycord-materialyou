@@ -1,0 +1,15 @@
+{
+  "name": "Material You Theme",
+  "description": "Keeps a ShiggyCord theme in your Android wallpaper's Material You colors.",
+  "authors": [
+    {
+      "name": "elythh",
+      "id": "000000000000000000"
+    }
+  ],
+  "main": "index.js",
+  "hash": "25031b522a7cfc9f761d02550cfbc3dfd13f6525bf37840927dbbca9610b0bed",
+  "vendetta": {
+    "icon": "ic_palette_24px"
+  }
+}

@@ -1,7 +1,34 @@
 # ShiggyCord Material You
 
 A dark [ShiggyCord](https://github.com/kmmiio99o/ShiggyCord) theme in your Android wallpaper's
-Material You colors.
+Material You colors, as a plugin that follows the wallpaper or as a static theme.
+
+## Plugin: follow the wallpaper automatically (recommended)
+
+The plugin rebuilds the theme from your wallpaper's colors every time Discord starts.
+
+**Install:** in ShiggyCord, open **Settings → Plugins**, install a plugin from a URL, and paste:
+
+```
+https://raw.githubusercontent.com/elythh/shiggycord-materialyou/main/plugin/
+```
+
+On first start it adds and selects a theme called **Material You (live)**. After a wallpaper change,
+close Discord fully and reopen it: the plugin updates the colors and shows a toast, and one more
+restart applies them to the native parts of the app.
+
+If you select a different theme, the plugin keeps the Material You theme up to date in the
+background but doesn't switch back to it. Disabling the plugin removes the theme.
+
+How it works: ShiggyXposed passes Android's Material You palettes (`system_accent1`–`3`,
+`system_neutral1`–`2`, 13 shades each) to ShiggyCord when Discord loads. The plugin turns them into
+Material roles, using the tones Android 16+ uses, and fills the color mapping below. ShiggyCord
+themes only accept fixed colors, so this is as live as a theme can get.
+
+To change the plugin, edit `plugin-src/index.js` and run `./build_plugin.py`; it embeds the template
+and updates the hash in `plugin/manifest.json`, which ShiggyCord uses to detect updates.
+
+## Static theme
 
 **Install:** in ShiggyCord, open **Settings → Themes**, choose to install a theme from a URL, and paste:
 
