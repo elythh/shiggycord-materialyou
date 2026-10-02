@@ -157,6 +157,66 @@
         return theme;
     }
 
+    // ShiggyCord only swaps semantic colors (backgrounds, text) in while Discord's appearance is
+    // its theme key, and on Discord 349 the appearance stays "darker", so only raw colors
+    // (accents, buttons) changed. This patch resolves the theme's colors directly for every
+    // dark appearance while the Material You theme is selected.
+    let colorPatch = null;
+    let active = null; // { semantic: {NAME: hex}, raw: {NAME: hex} }
+
+    const toHex = value => {
+        const rgba = typeof value === "string" && value.replace(/\s/g, "").match(/^rgba\((\d+),(\d+),(\d+),([0-9.]+)\)$/i);
+        if (!rgba) return value;
+        const hex = [rgba[1], rgba[2], rgba[3]].map(n => Number(n).toString(16).padStart(2, "0")).join("");
+        return "#" + hex + Math.round(Number(rgba[4]) * 255).toString(16).padStart(2, "0");
+    };
+    const withOpacity = (hex, opacity) => opacity == null || opacity >= 1 || hex.length !== 7
+        ? hex
+        : hex + Math.round(opacity * 255).toString(16).padStart(2, "0");
+
+    function setActiveColors(data) {
+        const semantic = {};
+        for (const [key, values] of Object.entries(data.semanticColors ?? {})) {
+            if (values?.[0]) semantic[key] = toHex(values[0]);
+        }
+        const raw = {};
+        for (const [key, value] of Object.entries(data.rawColors ?? {})) raw[key] = toHex(value);
+        active = { semantic, raw };
+    }
+
+    function installColorPatch() {
+        if (colorPatch) return true;
+        const tokens = vendetta.metro.findByProps("SemanticColor");
+        const target = tokens?.default?.meta ?? tokens?.default?.internal;
+        if (!target?.resolveSemanticColor) return false;
+        let nameSymbol;
+        colorPatch = vendetta.patcher.instead("resolveSemanticColor", target, (args, orig) => {
+            const [themeName, colorObj] = args;
+            if (!active || typeof themeName !== "string" || themeName === "light" || !colorObj) {
+                return orig(...args);
+            }
+            try {
+                nameSymbol ??= Object.getOwnPropertySymbols(colorObj)[0];
+                const name = colorObj[nameSymbol];
+                if (active.semantic[name]) return active.semantic[name];
+                const def = tokens.SemanticColor[name]?.[themeName];
+                const raw = def && active.raw[def.raw];
+                if (raw) return withOpacity(raw, def.opacity);
+            } catch (e) {
+                log("error", "color patch", String(e));
+            }
+            return orig(...args);
+        });
+        return true;
+    }
+
+    // Re-render with the patched colors: re-apply Discord's current appearance.
+    function refreshAppearance() {
+        const appearance = vendetta.metro.findByProps("updateTheme");
+        const themeStore = vendetta.metro.findByStoreName("ThemeStore");
+        if (appearance?.updateTheme && themeStore?.theme) appearance.updateTheme(themeStore.theme);
+    }
+
     function apply() {
         const loader = globalThis.__PYON_LOADER__;
         log("log", "start", JSON.stringify({
@@ -210,11 +270,21 @@
                     : "Material You theme applied.");
             }
         }
+        const current = themes[THEME_ID];
+        let patched = false;
+        if (current?.selected) {
+            setActiveColors(changed ? data : current.data);
+            patched = installColorPatch();
+            refreshAppearance();
+        } else {
+            active = null;
+        }
+
         // Temporary diagnostics: plugin console output doesn't reach logcat on this build.
         if (storage.debug !== false) {
             setTimeout(() => vendetta.ui?.toasts?.showToast?.(
                 `MY dbg: sel=${existing?.selected} chg=${changed} disc ${before} -> ${themeStore?.theme} ` +
-                `cur=${vendetta.themes.getCurrentTheme?.()?.id ?? "none"} sys=${!!sys}`), 4000);
+                `cur=${(vendetta.themes.getCurrentTheme?.()?.id ?? "none").slice(-20)} sys=${!!sys} patched=${patched}`), 4000);
         }
         if (!changed) return;
         log("log", `Material You theme ${existing ? "updated" : "installed"}: ${data.description}`);
@@ -229,6 +299,9 @@
             }
         },
         onUnload() {
+            colorPatch?.();
+            colorPatch = null;
+            active = null;
             const { themes } = vendetta.themes;
             if (themes[THEME_ID]?.selected || themes[LEGACY_THEME_ID]?.selected) vendetta.themes.selectTheme("default");
             delete themes[THEME_ID];
