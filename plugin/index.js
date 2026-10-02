@@ -189,6 +189,7 @@
         // Discord's appearance is set to the theme's key, and selectTheme is what sets it;
         // without this, a restart leaves only the raw colors (buttons, brand) themed.
         // Picking another theme is respected: an unselected theme is only kept up to date.
+        const before = themeStore?.theme;
         if (!existing || existing.selected) {
             vendetta.themes.selectTheme(THEME_ID);
             log("log", "selected", JSON.stringify({ discordTheme: themeStore?.theme }));
@@ -197,6 +198,12 @@
                     ? "Material You theme updated to your wallpaper."
                     : "Material You theme applied.");
             }
+        }
+        // Temporary diagnostics: plugin console output doesn't reach logcat on this build.
+        if (storage.debug !== false) {
+            setTimeout(() => vendetta.ui?.toasts?.showToast?.(
+                `MY dbg: sel=${existing?.selected} chg=${changed} disc ${before} -> ${themeStore?.theme} ` +
+                `cur=${vendetta.themes.getCurrentTheme?.()?.id ?? "none"} sys=${!!sys}`), 4000);
         }
         if (!changed) return;
         log("log", `Material You theme ${existing ? "updated" : "installed"}: ${data.description}`);
