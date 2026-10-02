@@ -2,7 +2,11 @@
 // replaces __TEMPLATE__ with the Catppuccin theme JSON. ShiggyCord evaluates this file as one
 // expression (`vendetta => { return <file> }`), so it must stay a single IIFE.
 (() => {
-    const THEME_ID = "materialyou-plugin";
+    // Theme ids must be URLs: other plugins (Cloud Sync) validate them as such. Nothing is hosted
+    // here on purpose, so ShiggyCord's startup refresh of installed themes fails for this id and
+    // keeps the colors the plugin wrote instead of replacing them.
+    const THEME_ID = "https://raw.githubusercontent.com/elythh/shiggycord-materialyou/main/plugin/live-theme.json";
+    const LEGACY_THEME_ID = "materialyou-plugin";
     const TEMPLATE = __TEMPLATE__;
     // Semantic keys newer Discord versions use that the template lacks (extra-semantic.json):
     // role name, or #hex for colors with a fixed meaning.
@@ -173,6 +177,13 @@
         // ShiggyCord's parser edits a theme's colors in place (it adds Android alpha keys), so
         // comparing against the stored theme always differs; compare the inputs instead.
         const fingerprint = JSON.stringify(sys);
+        // Move a theme stored under the old non-URL id, keeping whether it was selected.
+        const legacy = themes[LEGACY_THEME_ID];
+        if (legacy) {
+            if (!themes[THEME_ID]) themes[THEME_ID] = { ...legacy, id: THEME_ID };
+            delete themes[LEGACY_THEME_ID];
+            delete storage.fingerprint;
+        }
         const existing = themes[THEME_ID];
         const changed = !existing || storage.fingerprint !== fingerprint;
         const themeStore = vendetta.metro?.findByStoreName?.("ThemeStore");
@@ -222,8 +233,9 @@
         },
         onUnload() {
             const { themes } = vendetta.themes;
-            if (themes[THEME_ID]?.selected) vendetta.themes.selectTheme("default");
+            if (themes[THEME_ID]?.selected || themes[LEGACY_THEME_ID]?.selected) vendetta.themes.selectTheme("default");
             delete themes[THEME_ID];
+            delete themes[LEGACY_THEME_ID];
             delete vendetta.plugin.storage.fingerprint;
         },
         // Exposed for testing outside Discord.
